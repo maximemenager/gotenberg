@@ -279,7 +279,7 @@ func EncryptPdfStub(ctx *api.Context, engine gotenberg.PdfEngine, userPassword, 
 
 func WatermarkPdfStub(ctx *api.Context, engine gotenberg.PdfEngine, mode, watermark string, inputPaths []string, params string) error {
 	for _, inputPath := range inputPaths {
-		err := engine.AddWatermark(ctx, ctx.Log(), mode, watermark, inputPath, params)
+		err := engine.Watermark(ctx, ctx.Log(), mode, watermark, inputPath, params)
 		if err != nil {
 			return fmt.Errorf("add watermark PDF '%s': %w", inputPath, err)
 		}
@@ -636,19 +636,21 @@ func encryptRoute(engine gotenberg.PdfEngine) api.Route {
 func watermarkRoute(engine gotenberg.PdfEngine) api.Route {
 	return api.Route{
 		Method:      http.MethodPost,
-		Path:        "/forms/pdfengines/add-watermark",
+		Path:        "/forms/pdfengines/watermark",
 		IsMultipart: true,
 		Handler: func(c echo.Context) error {
 			ctx := c.Get("context").(*api.Context)
 
 			form := ctx.FormData()
 
-			var inputPaths []string
-			var watermarkPath string
-			var watermarkFilename string
-			var watermarkText string
-			var watermarkMode string
-			var params string
+			var (
+				inputPaths        []string
+				watermarkPath     string
+				watermarkFilename string
+				watermarkText     string
+				watermarkMode     string
+				params            string
+			)
 
 			err := form.
 				MandatoryPaths([]string{".pdf"}, &inputPaths).

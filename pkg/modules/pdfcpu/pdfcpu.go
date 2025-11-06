@@ -202,11 +202,11 @@ func (engine *PdfCpu) Encrypt(ctx context.Context, logger *zap.Logger, inputPath
 	return nil
 }
 
-// AddWatermark adds a watermark (text, image, or PDF) to a PDF file using pdfcpu.
+// Watermark adds a watermark (text, image, or PDF) to a PDF file using pdfcpu.
 // The mode parameter specifies the watermark type: "text", "image", or "pdf".
 // The watermark parameter is either text content (for text mode) or a file path (for image/pdf modes).
 // The parameters string contains pdfcpu configuration options (position, rotation, opacity, etc.).
-func (engine *PdfCpu) AddWatermark(ctx context.Context, logger *zap.Logger, mode, watermark, inputPath, parameters string) error {
+func (engine *PdfCpu) Watermark(ctx context.Context, logger *zap.Logger, mode, watermark, inputPath, parameters string) error {
 	// Validate mode
 	if mode != "text" && mode != "image" && mode != "pdf" {
 		return fmt.Errorf("invalid watermark mode '%s': must be 'text', 'image', or 'pdf'", mode)

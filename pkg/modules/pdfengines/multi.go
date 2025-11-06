@@ -241,15 +241,15 @@ func (multi *multiPdfEngines) Encrypt(ctx context.Context, logger *zap.Logger, i
 	return fmt.Errorf("encrypt PDF using multi PDF engines: %w", err)
 }
 
-// AddWatermark adds a watermark to a PDF file using the first available
+// Watermark adds a watermark to a PDF file using the first available
 // engine that supports watermarking.
-func (multi *multiPdfEngines) AddWatermark(ctx context.Context, logger *zap.Logger, mode, watermark, inputPath, description string) error {
+func (multi *multiPdfEngines) Watermark(ctx context.Context, logger *zap.Logger, mode, watermark, inputPath, description string) error {
 	var err error
 	errChan := make(chan error, 1)
 
-	for _, engine := range multi.passwordEngines {
+	for _, engine := range multi.watermarkEngines {
 		go func(engine gotenberg.PdfEngine) {
-			errChan <- engine.AddWatermark(ctx, logger, mode, watermark, inputPath, description)
+			errChan <- engine.Watermark(ctx, logger, mode, watermark, inputPath, description)
 		}(engine)
 
 		select {
@@ -263,7 +263,7 @@ func (multi *multiPdfEngines) AddWatermark(ctx context.Context, logger *zap.Logg
 		}
 	}
 
-	return fmt.Errorf("addWatermark PDF using multi PDF engines: %w", err)
+	return fmt.Errorf("Watermark PDF using multi PDF engines: %w", err)
 }
 
 // Interface guards.
