@@ -213,7 +213,7 @@ func (engine *PdfCpu) Watermark(ctx context.Context, logger *zap.Logger, mode, w
 	}
 
 	var args []string
-	args = append(args, "stamp", "add")
+	args = append(args, "watermark", "add")
 	args = append(args, "-p", "1-")
 	args = append(args, "-m", mode)
 	args = append(args, "--", watermark)
