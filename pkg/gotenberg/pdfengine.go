@@ -148,6 +148,11 @@ type PdfEngine interface {
 	// The mode can be "text", "image", or "pdf".
 	// The watermark is either text content or a file path depending on the mode.
 	Watermark(ctx context.Context, logger *zap.Logger, mode, watermark, inputPath, description string) error
+
+	// Stamp adds a stamp to a PDF file.
+	// The mode can be "text", "image", or "pdf".
+	// The stamp is either text content or a file path depending on the mode.
+	Stamp(ctx context.Context, logger *zap.Logger, mode, stamp, inputPath, description string) error
 }
 
 // PdfEngineProvider offers an interface to instantiate a [PdfEngine].

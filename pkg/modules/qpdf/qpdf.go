@@ -206,6 +206,11 @@ func (engine *QPdf) Watermark(ctx context.Context, logger *zap.Logger, mode, wat
 	return fmt.Errorf("add watermark with QPDF: %w", gotenberg.ErrPdfEngineMethodNotSupported)
 }
 
+// Stamp is not available in this implementation.
+func (engine *QPdf) Stamp(ctx context.Context, logger *zap.Logger, mode, stamp, inputPath, description string) error {
+	return fmt.Errorf("add stamp with QPDF: %w", gotenberg.ErrPdfEngineMethodNotSupported)
+}
+
 var (
 	_ gotenberg.Module      = (*QPdf)(nil)
 	_ gotenberg.Provisioner = (*QPdf)(nil)

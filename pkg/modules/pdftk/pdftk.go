@@ -188,6 +188,11 @@ func (engine *PdfTk) Watermark(ctx context.Context, logger *zap.Logger, mode, wa
 	return fmt.Errorf("add watermark with PDFtk: %w", gotenberg.ErrPdfEngineMethodNotSupported)
 }
 
+// Stamp is not available in this implementation.
+func (engine *PdfTk) Stamp(ctx context.Context, logger *zap.Logger, mode, stamp, inputPath, description string) error {
+	return fmt.Errorf("add stamp with PDFtk: %w", gotenberg.ErrPdfEngineMethodNotSupported)
+}
+
 // Interface guards.
 var (
 	_ gotenberg.Module      = (*PdfTk)(nil)
